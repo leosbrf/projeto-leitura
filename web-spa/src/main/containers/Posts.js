@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
 import { fetchAllPostsRequested, votePostRequested } from '../../state/modules/posts/actions'
 import PostSummary from '../components/Posts/PostSummary'
-import { withStyles, AppBar, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Toolbar, Tooltip } from '@material-ui/core'
+import { withStyles, AppBar, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Toolbar, Tooltip, Typography } from '@material-ui/core'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import SortIcon from '@material-ui/icons/Sort'
 
@@ -115,7 +115,7 @@ class Posts extends Component {
         const { sortingAttribute, sortingOrder } = this.state
         const { classes, posts, isLoading } = this.props
 
-        let listItems = 'No posts'
+        let listItems = <Typography style={{marginTop: '16px'}} variant="h6">No posts</Typography>
 
         if (isLoading) {
             return (
