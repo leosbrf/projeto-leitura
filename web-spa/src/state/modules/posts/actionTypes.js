@@ -1,0 +1,59 @@
+/*
+* I decided to create a default flow for every action. The pattern is:
+* _REQUESTED: used by the UI containers and components. It is being observed by redux-saga and it triggers the respective saga.
+* _START: it is triggered by the saga. If the application needs to do some work right before the saga main purpose.
+* _SUCCESS: dispatched inside the saga when the request has been accomplished.
+* _FAILED: dispatched by the catch block inside the saga.
+* 
+* This flow gives more control and flexibility for calling workloads in some situations.
+*/
+
+export const FETCH_ALL_POSTS_REQUESTED = 'FETCH_ALL_POSTS_REQUESTED'
+export const FETCH_ALL_POSTS_START = 'FETCH_ALL_POSTS_START'
+export const FETCH_ALL_POSTS_SUCCESS = 'FETCH_ALL_POSTS_SUCCESS'
+export const FETCH_ALL_POSTS_FAILED = 'FETCH_ALL_POSTS_FAILED'
+
+export const ADD_POST_REQUESTED = 'ADD_POST_REQUESTED'
+export const ADD_POST_START = 'ADD_POST_START'
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS'
+export const ADD_POST_FAILED = 'ADD_POST_FAILED'
+
+export const UPDATE_POST_REQUESTED = 'UPDATE_POST_REQUESTED'
+export const UPDATE_POST_START = 'UPDATE_POST_START'
+export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
+export const UPDATE_POST_FAILED = 'UPDATE_POST_FAILED'
+
+export const GET_POST_REQUESTED = 'GET_POST_REQUESTED'
+export const GET_POST_START = 'GET_POST_START'
+export const GET_POST_SUCCESS = 'GET_POST_SUCCESS'
+export const GET_POST_FAILED = 'GET_POST_FAILED'
+
+export const VOTE_POST_REQUESTED = 'VOTE_POST_REQUESTED'
+export const VOTE_POST_START = 'VOTE_POST_START'
+export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS'
+export const VOTE_POST_FAILED = 'VOTE_POST_FAILED'
+
+export const DELETE_POST_REQUESTED = 'DELETE_POST_REQUESTED'
+export const DELETE_POST_START = 'DELETE_POST_START'
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS'
+export const DELETE_POST_FAILED = 'DELETE_POST_FAILED'
+
+export const ADD_POSTCOMMENT_REQUESTED = 'ADD_POSTCOMMENT_REQUESTED'
+export const ADD_POSTCOMMENT_START = 'ADD_POSTCOMMENT_START'
+export const ADD_POSTCOMMENT_SUCCESS = 'ADD_POSTCOMMENT_SUCCESS'
+export const ADD_POSTCOMMENT_FAILED = 'ADD_POSTCOMMENT_FAILED'
+
+export const UPDATE_POSTCOMMENT_REQUESTED = 'UPDATE_POSTCOMMENT_REQUESTED'
+export const UPDATE_POSTCOMMENT_START = 'UPDATE_POSTCOMMENT_START'
+export const UPDATE_POSTCOMMENT_SUCCESS = 'UPDATE_POSTCOMMENT_SUCCESS'
+export const UPDATE_POSTCOMMENT_FAILED = 'UPDATE_POSTCOMMENT_FAILED'
+
+export const DELETE_POSTCOMMENT_REQUESTED = 'DELETE_POSTCOMMENT_REQUESTED'
+export const DELETE_POSTCOMMENT_START = 'DELETE_POSTCOMMENT_START'
+export const DELETE_POSTCOMMENT_SUCCESS = 'DELETE_POSTCOMMENT_SUCCESS'
+export const DELETE_POSTCOMMENT_FAILED = 'DELETE_POSTCOMMENT_FAILED'
+
+export const VOTE_POSTCOMMENT_REQUESTED = 'VOTE_POSTCOMMENT_REQUESTED'
+export const VOTE_POSTCOMMENT_START = 'VOTE_POSTCOMMENT_START'
+export const VOTE_POSTCOMMENT_SUCCESS = 'VOTE_POSTCOMMENT_SUCCESS'
+export const VOTE_POSTCOMMENT_FAILED = 'VOTE_POSTCOMMENT_FAILED'
