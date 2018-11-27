@@ -67,7 +67,8 @@ const CategoriesDrawer = (props) => {
                         to={{
                             pathname: '/',
                             search: `category=${category.name}`
-                        }}>
+                        }}
+                        onClick={onHandleDrawerClose}>
                         <ListItemText primary={category.name} />
                     </ListItem>
                 ))}
