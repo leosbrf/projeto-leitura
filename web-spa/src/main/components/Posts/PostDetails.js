@@ -271,8 +271,8 @@ class PostDetails extends Component {
             <div>
               <IconButton
                 className={classes.margin}
-                title="Edit"
-                aria-label="Edit Comment"
+                title="Reply"
+                aria-label="Reply Comment"
                 onClick={(e) => this.handleReplyComment(e, comment.id)}>
                 <ReplyOutlinedIcon />
               </IconButton>
