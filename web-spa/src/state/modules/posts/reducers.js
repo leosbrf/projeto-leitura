@@ -3,7 +3,10 @@ import createReducer from '../../utils/createReducer'
 import { sortility } from "../../../shared/util/sortilities";
 
 const initialState = {
-    posts: []
+    posts: [],
+    post: null,
+    isLoading: false,
+    postNotFound: false
 }
 
 /*
