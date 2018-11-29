@@ -33,6 +33,7 @@ describe('<VoteScore />', () => {
                 [score: {voteScore}]
             </Typography>
         )).toEqual(true)
+        
     })
 })
 
