@@ -24,7 +24,7 @@ const postsReducer = createReducer(initialState)({
     [types.ADD_POSTCOMMENT_SUCCESS]: (state, action) => (handleSavePostCommentSuccess(state, action)),
     [types.UPDATE_POSTCOMMENT_SUCCESS]: (state, action) => (handleSavePostCommentSuccess(state, action)),
     [types.DELETE_POSTCOMMENT_SUCCESS]: (state, action) => (handleDeletePostCommentSuccess(state, action)),
-    [types.VOTE_POSTCOMMENT_SUCCESS]: (state, action) => (handleVotePostCommentSuccess(state, action))
+    [types.VOTE_POSTCOMMENT_SUCCESS]: (state, action) => (handleSavePostCommentSuccess(state, action))
 })
 
 const handleFetchAllPostsSuccess = (state, action) => {
@@ -68,7 +68,9 @@ const handleVotePostSuccess = (state, action) => {
     let posts = [...state.posts]
     let updatedPost = posts.find(p => p.id === post.id)
 
-    updatedPost.voteScore = post.voteScore
+    //if the updated post is not found in the posts array, do nothing! 
+    if (updatedPost)
+        updatedPost.voteScore = post.voteScore
 
     return {
         ...state,
@@ -82,9 +84,14 @@ const handleVotePostSuccess = (state, action) => {
 
 const handleSavePostCommentSuccess = (state, action) => {
 
-    const comments = { ...state.post.comments }
+    let comments = null
 
-    comments[action.comment.id] = action.comment
+    //adds or update the post in the state collection of the post comments.
+    if (state.post) {
+        comments = { ...state.post.comments }
+
+        comments[action.comment.id] = action.comment
+    }
 
     return {
         ...state,
@@ -97,23 +104,12 @@ const handleSavePostCommentSuccess = (state, action) => {
 
 const handleDeletePostCommentSuccess = (state, action) => {
 
+    if (!action.id)
+        return { ...state }
+
     const comments = { ...state.post.comments }
 
     delete comments[action.id]
-
-    return {
-        ...state,
-        post: {
-            ...state.post,
-            comments
-        }
-    }
-}
-
-const handleVotePostCommentSuccess = (state, action) => {
-    const comments = { ...state.post.comments }
-
-    comments[action.comment.id] = action.comment
 
     return {
         ...state,
