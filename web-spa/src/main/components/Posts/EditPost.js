@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { updatePostRequested, getPostRequested } from '../../../store/modules/posts/actions'
 import PostForm from '../Widgets/PostForm'
 
-class NewPost extends Component {
+export class EditPost extends Component {
 
     componentDidMount() {
         const { match: { params }, onGetPost } = this.props
@@ -56,4 +56,4 @@ const mapDispatchToProps = dispatch => (
 )
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost)

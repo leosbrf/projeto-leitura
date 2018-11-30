@@ -120,7 +120,7 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class PostDetails extends Component {
+export class PostDetails extends Component {
 
   state = {
     open: false,

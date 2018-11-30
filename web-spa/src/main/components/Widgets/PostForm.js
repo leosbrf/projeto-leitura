@@ -38,7 +38,7 @@ const styles = theme => {
     }
 }
 
-class PostForm extends PureComponent {
+export class PostForm extends PureComponent {
 
     state = {
         selectedCategory: '',
@@ -112,7 +112,7 @@ class PostForm extends PureComponent {
         const { errors, labelWidth, selectedCategory } = this.state
         const { classes, categories, handleBack, post } = this.props
 
-        let title, body, author, category = null
+        let title, body, author, category = ''
         
         if (post && post.id) {
             title = post.title
