@@ -2,7 +2,7 @@ import React, { Fragment, PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { withStyles, Button, FormControl, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@material-ui/core'
-import { fetchAllCategoriesRequested } from '../../../state/modules/categories/actions'
+import { fetchAllCategoriesRequested } from '../../../store/modules/categories/actions'
 import { withSnackbar } from 'notistack'
 
 const styles = theme => {

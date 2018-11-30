@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addPostRequested } from '../../../state/modules/posts/actions'
+import { addPostRequested } from '../../../store/modules/posts/actions'
 import generateId from '../../../shared/util/generateId'
 import PostForm from '../Widgets/PostForm'
 

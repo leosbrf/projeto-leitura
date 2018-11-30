@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects'
-import { readableDataService } from '../../../shared/services/data.service'
+import readableDataService from '../../../shared/services/data.service'
 import {
     fetchAllPostsStart, fetchAllPostsSuccess, fetchAllPostsFailed,
     addPostStart, addPostSuccess, addPostFailed,

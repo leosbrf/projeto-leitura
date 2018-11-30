@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updatePostRequested, getPostRequested } from '../../../state/modules/posts/actions'
+import { updatePostRequested, getPostRequested } from '../../../store/modules/posts/actions'
 import PostForm from '../Widgets/PostForm'
 
 class NewPost extends Component {

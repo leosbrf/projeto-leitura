@@ -29,7 +29,7 @@ import {
   updatePostCommentRequested,
   deletePostCommentRequested,
   votePostCommentRequested
-} from '../../../state/modules/posts/actions'
+} from '../../../store/modules/posts/actions'
 import generateId from '../../../shared/util/generateId'
 import VoteScore from '../Widgets/VoteScore'
 

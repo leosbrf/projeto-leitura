@@ -5,7 +5,7 @@ import { withStyles, AppBar, Toolbar, Typography, IconButton, Tooltip } from '@m
 import InvertColorsIcon from '@material-ui/icons/InvertColors'
 import MenuIcon from '@material-ui/icons/Menu'
 import CategoriesDrawer from '../components/Navigation/CategoriesDrawer'
-import { fetchAllCategoriesRequested } from '../../state/modules/categories/actions'
+import { fetchAllCategoriesRequested } from '../../store/modules/categories/actions'
 
 
 const style = theme => ({
