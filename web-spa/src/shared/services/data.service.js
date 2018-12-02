@@ -17,8 +17,11 @@ readableDataService.interceptors.response.use(
     res => {
         return res.data
     },
-    (error) => {
-        console.log(error);
+    (err) => {
+        const error = new Error(err.response.statusText)
+        error.statusCode = err.response.status
+        error.data = err.response.data
+        return Promise.reject(error)
     }
 )
 

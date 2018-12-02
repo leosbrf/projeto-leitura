@@ -38,13 +38,13 @@ const styles = theme => {
             margin: theme.spacing.unit * 2
         },
         progress: {
-          margin: theme.spacing.unit * 4,
-          textAlign: 'center'
+            margin: theme.spacing.unit * 4,
+            textAlign: 'center'
         },
     }
 }
 
-class Posts extends Component {
+export class Posts extends Component {
 
     state = {
         selectedCategory: null,
@@ -87,19 +87,26 @@ class Posts extends Component {
     }
 
     handleSortingAttributeChanged = (event, { props: { value } }) => {
-        const { onFetchPosts } = this.props
-        const { selectedCategory, sortingOrder } = this.state
+        event.preventDefault()
 
-        this.setState({ sortingAttribute: value })
-        onFetchPosts(selectedCategory, value, sortingOrder)
+        const { onFetchPosts } = this.props
+        const { selectedCategory, sortingAttribute, sortingOrder } = this.state
+
+        if (sortingAttribute !== value) {
+            this.setState({ sortingAttribute: value })
+            onFetchPosts(selectedCategory, value, sortingOrder)
+        }
+
     }
 
-    handleSortingOrderChanged = (event, sortingOrder) => {
+    handleSortingOrderChanged = (event, newSortingOrder) => {
+        event.preventDefault()
+
         const { onFetchPosts } = this.props
         const { selectedCategory, sortingAttribute } = this.state
 
-        this.setState({ sortingOrder: sortingOrder })
-        onFetchPosts(selectedCategory, sortingAttribute, sortingOrder)
+        this.setState({ sortingOrder: newSortingOrder })
+        onFetchPosts(selectedCategory, sortingAttribute, newSortingOrder)
     }
 
     handleVotePost = (e, id, option) => {
@@ -115,15 +122,15 @@ class Posts extends Component {
         const { sortingAttribute, sortingOrder } = this.state
         const { classes, posts, isLoading } = this.props
 
-        let listItems = <Typography style={{marginTop: '16px'}} variant="h6">No posts</Typography>
+        let listItems = <Typography style={{ marginTop: '16px' }} variant="h6">No posts</Typography>
 
         if (isLoading) {
             return (
-              <div className={classnames(classes.posts, classes.progress)}>
-                <CircularProgress className={classes.progress} />
-              </div>
+                <div className={classnames(classes.posts, classes.progress)}>
+                    <CircularProgress className={classes.progress} />
+                </div>
             )
-          }
+        }
 
 
         if (posts && posts.length > 0) {
@@ -156,6 +163,7 @@ class Posts extends Component {
                             </FormControl>
                             <ToggleButtonGroup
                                 value={sortingOrder}
+                                selected
                                 exclusive
                                 onChange={this.handleSortingOrderChanged}
                                 className={classes.rightIcons}>

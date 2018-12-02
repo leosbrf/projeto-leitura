@@ -8,9 +8,14 @@ configure({ adapter: new Adapter() })
 
 const setup = () => {
     const props = {
+        post: {
+            id: 1
+        },
         classes: {},
         categories: [],
-        handleBack: jest.fn()
+        handleBack: jest.fn(),
+        handleSubmit: jest.fn(),
+        onPresentSnackbar: jest.fn()
     }
 
     const enzymeWrapper = mount(<PostForm {...props} />)
@@ -63,5 +68,13 @@ describe('<PostForm />', () => {
         const errors = instance.validate()
 
         expect(Object.keys(errors)).toHaveLength(4)
+    })
+
+    it('should handle submit', () => {
+        const evt = {
+            preventDefault: jest.fn()
+        }
+        const { enzymeWrapper } = setup()
+        enzymeWrapper.find(PostForm).instance().handleSubmit(evt)
     })
 })

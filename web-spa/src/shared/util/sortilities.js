@@ -10,7 +10,7 @@ export const sortility = (collection, field, order) => {
         sortedCollection = sortedCollection.sort((a, b) => {
             return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
         });
-    } else {
+    } else if (order === 'desc') {
         sortedCollection = sortedCollection.sort((a, b) => {
             return a[field] > b[field] ? -1 : a[field] < b[field] ? 1 : 0;
         });

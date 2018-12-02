@@ -56,7 +56,8 @@ const CategoriesDrawer = (props) => {
                     button
                     key="all"
                     component={Link}
-                    to={{ pathname: '/' }}>
+                    to={{ pathname: '/' }}
+                    onClick={onHandleDrawerClose}>
                     <ListItemText primary="all" />
                 </ListItem>
                 {categories.map((category) => (

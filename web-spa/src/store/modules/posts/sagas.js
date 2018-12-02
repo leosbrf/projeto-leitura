@@ -42,7 +42,7 @@ export function* addPostSaga(action) {
         yield call(readableDataService.post, '/posts', action.post)
         yield put(addPostSuccess())
     } catch (error) {
-        yield put(addPostFailed())
+        yield put(addPostFailed(error))
     }
 }
 
@@ -52,7 +52,7 @@ export function* updatePostSaga(action) {
         yield call(readableDataService.put, `/posts/${action.post.id}`, action.post)
         yield put(updatePostSuccess())
     } catch (error) {
-        yield put(updatePostFailed())
+        yield put(updatePostFailed(error))
     }
 }
 
@@ -63,7 +63,7 @@ export function* getPostSaga(action) {
         const comments = yield call(readableDataService.get, `/posts/${action.id}/comments`)
         yield put(getPostSuccess(post, comments))
     } catch (error) {
-        yield put(getPostFailed())
+        yield put(getPostFailed(error))
     }
 }
 
@@ -74,7 +74,7 @@ export function* votePostSaga(action) {
         const post = yield call(readableDataService.get, `/posts/${action.id}`)
         yield put(votePostSuccess(post))
     } catch (error) {
-        yield put(votePostFailed())
+        yield put(votePostFailed(error))
     }
 }
 
@@ -84,7 +84,7 @@ export function* deletePostSaga(action) {
         yield call(readableDataService.delete, `/posts/${action.id}`)
         yield put(deletePostSuccess())
     } catch (error) {
-        yield put(deletePostFailed())
+        yield put(deletePostFailed(error))
     }
 }
 
@@ -94,7 +94,7 @@ export function* addPostCommentSaga(action) {
         yield call(readableDataService.post, '/comments', action.comment)
         yield put(addPostCommentSuccess(action.comment))
     } catch (error) {
-        yield put(addPostCommentFailed())
+        yield put(addPostCommentFailed(error))
     }
 }
 
@@ -104,7 +104,7 @@ export function* updatePostCommentSaga(action) {
         yield call(readableDataService.put, `/comments/${action.comment.id}`, { timestamp: action.comment.timestamp, body: action.comment.body })
         yield put(updatePostCommentSuccess(action.comment))
     } catch (error) {
-        yield put(updatePostCommentFailed())
+        yield put(updatePostCommentFailed(error))
     }
 }
 
@@ -114,7 +114,7 @@ export function* deletePostCommentSaga(action) {
         yield call(readableDataService.delete, `/comments/${action.id}`)
         yield put(deletePostCommentSuccess(action.id))
     } catch (error) {
-        yield put(deletePostCommentFailed())
+        yield put(deletePostCommentFailed(error))
     }
 }
 
@@ -125,6 +125,6 @@ export function* votePostCommentSaga(action) {
         const comment = yield call(readableDataService.get, `/comments/${action.id}`)
         yield put(votePostCommentSuccess(comment))
     } catch (error) {
-        yield put(votePostCommentFailed())
+        yield put(votePostCommentFailed(error))
     }
 }

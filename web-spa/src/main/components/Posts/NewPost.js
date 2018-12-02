@@ -4,7 +4,7 @@ import { addPostRequested } from '../../../store/modules/posts/actions'
 import generateId from '../../../shared/util/generateId'
 import PostForm from '../Widgets/PostForm'
 
-class NewPost extends Component {
+export class NewPost extends Component {
 
     handleSubmit = (formData) => {
         const { onAddPost, history } = this.props
@@ -35,11 +35,10 @@ class NewPost extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => (
+export const mapDispatchToProps = dispatch => (
     {
         onAddPost: (post) => dispatch(addPostRequested(post))
     }
 )
-
 
 export default connect(null, mapDispatchToProps)(NewPost)

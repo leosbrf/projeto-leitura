@@ -44,11 +44,11 @@ export class EditPost extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
     post: state.posts.post
 })
 
-const mapDispatchToProps = dispatch => (
+export const mapDispatchToProps = dispatch => (
     {
         onUpdatePost: (post) => dispatch(updatePostRequested(post)),
         onGetPost: (id) => dispatch(getPostRequested(id))

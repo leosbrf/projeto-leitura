@@ -122,10 +122,16 @@ function Transition(props) {
 
 export class PostDetails extends Component {
 
+  constructor(props) {
+    super(props)
+    this.commentInputRef = React.createRef()
+  }
+
   state = {
     open: false,
     selectedPostComment: null,
-    replyCommentId: null
+    replyCommentId: null,
+    comment: ''
   }
 
   componentDidMount() {
@@ -135,13 +141,18 @@ export class PostDetails extends Component {
     onGetPost(params.id)
   }
 
+  handleEditCommentInputChanged = (comment) => {
+    this.setState({ comment })
+  }
+
   handleCloseEditCommentDialog = (save) => {
 
     if (save) {
+      const { comment } = this.state
       const { onUpdatePostComment } = this.props
       const postComment = { ...this.state.selectedPostComment }
 
-      postComment.body = this.editCommentInput.value
+      postComment.body = comment
       postComment.timestamp = + new Date()
 
       onUpdatePostComment(postComment)
@@ -170,21 +181,25 @@ export class PostDetails extends Component {
   handleAddComment = (e) => {
     e.preventDefault()
 
-    const { replyCommentId } = this.state
-    const { post, onAddPostComment } = this.props
+    if (this.commentInputRef.current.value) {
+      const { replyCommentId } = this.state
+      const { post, onAddPostComment } = this.props
 
-    const comment = {
-      id: generateId(),
-      timestamp: + new Date(),
-      body: this.commentInput.value,
-      author: post.author, //não existe um "usuário" logado
-      parentId: replyCommentId ? replyCommentId : post.id
+      const comment = {
+        id: generateId(),
+        timestamp: + new Date(),
+        body: this.commentInputRef.current.value,
+        author: post.author, //não existe um "usuário" logado
+        parentId: replyCommentId ? replyCommentId : post.id
+      }
+
+      this.setState({ replyCommentId: null });
+
+      onAddPostComment(comment)
+      this.commentInputRef.current.value = ''
+    } else {
+      this.commentInputRef.current.focus()
     }
-
-    this.setState({ replyCommentId: null });
-
-    onAddPostComment(comment)
-    this.commentInput.value = ''
   }
 
   handleCancelComment = (e) => {
@@ -194,7 +209,7 @@ export class PostDetails extends Component {
   handleReplyComment = (e, id) => {
     e.preventDefault()
     this.setState({ replyCommentId: id })
-    this.commentInput.focus()
+    this.commentInputRef.current.focus()
   }
 
   handleOpenEditCommentDialog = (e, comment) => {
@@ -323,7 +338,7 @@ export class PostDetails extends Component {
     if (!post)
       return null
 
-    const comments = Object.values(post.comments)
+    const comments = post.comments ? Object.values(post.comments) : []
 
     return (
       <Fragment>
@@ -372,7 +387,7 @@ export class PostDetails extends Component {
                   required
                   multiline
                   rows={4}
-                  inputRef={node => (this.commentInput = node)} />
+                  inputRef={this.commentInputRef} />
               </CardContent>
               <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
 
@@ -424,7 +439,7 @@ export class PostDetails extends Component {
 
             <div className={classnames(classes.mainContent, classes.margin)}>
               <TextField
-                id="comment_input"
+                id="edit_comment_input"
                 className={classes.formControl}
                 margin="normal"
                 variant="outlined"
@@ -432,7 +447,7 @@ export class PostDetails extends Component {
                 required
                 multiline
                 rows={4}
-                inputRef={node => (this.editCommentInput = node)}
+                onChange={(e) => this.handleEditCommentInputChanged(e.target.value)}
               />
 
               <Button
@@ -472,7 +487,7 @@ const mapStateToProps = (state) => ({
   isLoading: state.posts.isLoading
 })
 
-const mapDispatchToProps = dispatch => {
+export const mapDispatchToProps = dispatch => {
   return {
     onGetPost: (id) => dispatch(getPostRequested(id)),
     onVotePost: (id, vote) => dispatch(votePostRequested(id, vote)),
