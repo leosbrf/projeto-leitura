@@ -12,8 +12,8 @@ const setup = () => {
         posts: [{ id: 1, commentCount: 1 }, { id: 2, commentCount: 1 }],
         isLoading: false,
         classes: {},
-        location: {
-            search: ''
+        match: {
+            params: ''
         },
         onFetchPosts: jest.fn(),
         onVotePost: jest.fn()

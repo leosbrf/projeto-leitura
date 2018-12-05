@@ -373,7 +373,7 @@ export class PostDetails extends Component {
           </Card>
 
           <Typography className={classes.margin} variant="h6" align="center" gutterBottom paragraph>
-            Comments
+            Comments ({post.commentCount})
         </Typography>
 
           <form autoComplete="off">

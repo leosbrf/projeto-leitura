@@ -62,28 +62,14 @@ export class Posts extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
 
         const { sortingAttribute, sortingOrder } = this.state
-        const { onFetchPosts } = this.props
+        const { onFetchPosts, match: { params } } = this.props
 
-        let selectedCategory = this.getSelectedCategory();
+        let selectedCategory = params.category ? params.category : '';
 
         if (prevState.selectedCategory !== selectedCategory) {
             this.setState({ selectedCategory });
             onFetchPosts(selectedCategory, sortingAttribute, sortingOrder)
         }
-    }
-
-    getSelectedCategory = () => {
-        const { location: { search } } = this.props;
-
-        const queryString = new URLSearchParams(search);
-        let selectedCategory = null;
-        for (const param of queryString.entries()) {
-            if (param[0] === 'category') {
-                selectedCategory = param[1];
-            }
-        }
-
-        return selectedCategory;
     }
 
     handleSortingAttributeChanged = (event, { props: { value } }) => {

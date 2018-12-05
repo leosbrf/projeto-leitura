@@ -19,7 +19,7 @@ const postsReducer = createReducer(initialState)({
     [types.FETCH_ALL_POSTS_FAILED]: (state, action) => ({ ...state, post: null, isLoading: false }),
     [types.GET_POST_REQUESTED]: (state, action) => ({ ...state, post: null, isLoading: true }),
     [types.GET_POST_SUCCESS]: (state, action) => (handleGetPostSuccess(state, action)),
-    [types.GET_POST_FAILED]: (state, action) => ({ ...state, post: null, isLoading: false }),
+    [types.GET_POST_FAILED]: (state, action) => (handleGetPostFailed(state, action)),
     [types.VOTE_POST_SUCCESS]: (state, action) => (handleVotePostSuccess(state, action)),
     [types.ADD_POSTCOMMENT_SUCCESS]: (state, action) => (handleSavePostCommentSuccess(state, action)),
     [types.UPDATE_POSTCOMMENT_SUCCESS]: (state, action) => (handleSavePostCommentSuccess(state, action)),
@@ -62,23 +62,32 @@ const handleGetPostSuccess = (state, action) => {
     }
 }
 
+const handleGetPostFailed = (state, action) => {
+    return {
+        ...state,
+        post: null,
+        postNotFound: true,
+        isLoading: false
+    }
+}
+
 const handleVotePostSuccess = (state, action) => {
 
     const { post } = action
     let posts = [...state.posts]
-    let updatedPost = posts.find(p => p.id === post.id)
+
+    let updatedPost = { ...posts.find(p => p.id === post.id) }
 
     //if the updated post is not found in the posts array, do nothing! 
-    if (updatedPost)
+    if (updatedPost) {
         updatedPost.voteScore = post.voteScore
+        posts[posts.findIndex(p => p.id === updatedPost.id)] = updatedPost
+    }
 
     return {
         ...state,
         posts: posts,
-        post: {
-            ...state.post,
-            voteScore: post.voteScore
-        }
+        post: updatedPost
     }
 }
 
@@ -91,12 +100,14 @@ const handleSavePostCommentSuccess = (state, action) => {
         comments = { ...state.post.comments }
 
         comments[action.comment.id] = action.comment
+
     }
 
     return {
         ...state,
         post: {
             ...state.post,
+            commentCount: comments ? Object.keys(comments).length : 0,
             comments
         }
     }
@@ -115,6 +126,7 @@ const handleDeletePostCommentSuccess = (state, action) => {
         ...state,
         post: {
             ...state.post,
+            commentCount: comments ? Object.keys(comments).length : 0,
             comments
         }
     }

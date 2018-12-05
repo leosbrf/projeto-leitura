@@ -78,6 +78,7 @@ describe('Posts Reducer', () => {
             .toEqual({
                 ...initialState,
                 post: null,
+                postNotFound: true,
                 isLoading: false,
             })
     })
@@ -106,6 +107,7 @@ describe('Posts Reducer', () => {
             .toEqual({
                 ...initialState,
                 post: {
+                    commentCount: 1,
                     comments: { 1: { id: 1, data: 'dummy' } }
                 }
             })
@@ -121,6 +123,7 @@ describe('Posts Reducer', () => {
             .toEqual({
                 ...initialState,
                 post: {
+                    commentCount: 1,
                     comments: { 1: { id: 1, data: 'dummy1' } }
                 }
             })
@@ -136,6 +139,7 @@ describe('Posts Reducer', () => {
             .toEqual({
                 ...initialState,
                 post: {
+                    commentCount: 0,
                     comments: {}
                 }
             })
@@ -166,6 +170,7 @@ describe('Posts Reducer', () => {
             .toEqual({
                 ...initialState,
                 post: {
+                    commentCount: 1,
                     comments: { 1: { id: 1, data: 'dummy1', voteScore: 1 } }
                 }
             })

@@ -61,7 +61,16 @@ export function* getPostSaga(action) {
         yield put(getPostStart())
         const post = yield call(readableDataService.get, `/posts/${action.id}`)
         const comments = yield call(readableDataService.get, `/posts/${action.id}/comments`)
-        yield put(getPostSuccess(post, comments))
+
+        if (post && post.id) {
+            yield put(getPostSuccess(post, comments))
+        } else {
+            const error = new Error('Not Found')
+            error.statusCode = 404
+            error.data = post
+            yield put(getPostFailed(error))
+        }
+        
     } catch (error) {
         yield put(getPostFailed(error))
     }
